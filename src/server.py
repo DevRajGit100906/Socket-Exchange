@@ -479,8 +479,9 @@ def main(argv):
 
     exchange = Exchange(host, port, quiet=quiet)
 
+    caught = []
     def stop(signum, _frame):
-        log("caught signal %d", signum)
+        caught.append(signum)
         exchange.running = False
 
     signal.signal(signal.SIGINT, stop)
@@ -490,6 +491,8 @@ def main(argv):
     try:
         exchange.run()
     finally:
+        if caught:
+            log("caught signal %d", caught[0])
         exchange.shutdown()
     return 0
 
