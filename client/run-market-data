@@ -1,0 +1,4 @@
+#!/bin/sh
+# Launcher for a Market-Data Client: ./client/run-market-data <host> <port> [instrument ...]
+here=$(dirname "$0")
+exec python3 "$here/../src/market_data.py" "$@"

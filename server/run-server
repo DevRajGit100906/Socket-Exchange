@@ -1,0 +1,4 @@
+#!/bin/sh
+# Launcher for the Exchange Server: ./server/run-server <host> <port>
+here=$(dirname "$0")
+exec python3 "$here/../src/server.py" "$@"

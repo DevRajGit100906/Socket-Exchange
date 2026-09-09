@@ -1,0 +1,4 @@
+#!/bin/sh
+# Launcher for a Trader Client: ./client/run-trader <host> <port> [username]
+here=$(dirname "$0")
+exec python3 "$here/../src/trader.py" "$@"
