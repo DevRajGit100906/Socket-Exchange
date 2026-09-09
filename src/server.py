@@ -110,8 +110,14 @@ class Exchange:
                     continue
                 raise
 
-            sock.setblocking(False)
-            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            try:
+                sock.setblocking(False)
+                sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            except OSError as exc:
+                self.trace("fd %d reset before setup: %s", sock.fileno(), exc)
+                sock.close()
+                continue
+
             conn = Conn(sock, peer)
             self.conns[conn.fd] = conn
             self.poller.add(conn.fd)
